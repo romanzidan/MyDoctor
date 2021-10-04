@@ -1,7 +1,7 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {ILGetStarted, ILLogo} from '../../assets';
-import Button from '../../components/atoms/Button';
+import {Button, Gap} from '../../components';
 
 export default function GetStarted() {
   return (
@@ -14,7 +14,7 @@ export default function GetStarted() {
       </View>
       <View>
         <Button title="Memulai" />
-        <View style={styles.distanceBox} />
+        <Gap height={16} />
         <Button type="secondary" title="Masuk" />
       </View>
     </ImageBackground>
@@ -28,13 +28,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontWeight: '600',
     fontSize: 28,
     marginTop: 90,
     color: '#FFFFFF',
-    lineHeight: 34,
-  },
-  distanceBox: {
-    height: 16,
+    lineHeight: 35,
+    fontFamily: 'Nunito-SemiBold',
   },
 });

@@ -22,5 +22,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#1EA0BD',
     marginTop: 20,
+    fontFamily: 'Nunito-Bold',
   },
 });
