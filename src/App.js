@@ -1,6 +1,11 @@
 import React from 'react';
 import {GetStarted} from './pages';
+import {NavigationContainer} from '@react-navigation/native';
 
 export default function App() {
-  return <GetStarted />;
+  return (
+    <NavigationContainer>
+      <GetStarted />
+    </NavigationContainer>
+  );
 }
