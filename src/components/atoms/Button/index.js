@@ -1,8 +1,12 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableHighlight} from 'react-native';
 import {colors} from '../../../utils';
+import IconOnly from './IconOnly';
 
-export default function Button({type, title, onPress}) {
+export default function Button({type, title, onPress, icon}) {
+  if (type === 'icon-only') {
+    return <IconOnly icon={icon} onPress={onPress} />;
+  }
   return (
     <TouchableHighlight
       style={styles.container(type)}
@@ -29,7 +33,6 @@ const styles = StyleSheet.create({
   text: type => ({
     fontSize: 18,
     fontFamily: 'Nunito-SemiBold',
-    fontWeight: '600',
     textAlign: 'center',
     color:
       type === 'secondary'
