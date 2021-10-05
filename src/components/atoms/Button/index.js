@@ -1,11 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableHighlight} from 'react-native';
 
-export default function Button({type, title}) {
+export default function Button({type, title, onPress}) {
   return (
-    <View style={styles.container(type)}>
+    <TouchableHighlight
+      style={styles.container(type)}
+      onPress={onPress}
+      underlayColor={type === 'secondary' ? '#F3F3F3' : '#24BBDD'}>
       <Text style={styles.text(type)}>{title}</Text>
-    </View>
+    </TouchableHighlight>
   );
 }
 
