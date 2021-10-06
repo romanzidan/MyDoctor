@@ -6,12 +6,13 @@ import {
   NewsItem,
   RatedDoctor,
 } from '../../components';
+import {colors, fonts} from '../../utils';
 
 export default function Doctor() {
   return (
-    <View>
+    <View style={styles.page}>
       <HomeProfile />
-      <Text>Mau konsultasi dengan siapa hari ini?</Text>
+      <Text style={styles.welcome}>Mau konsultasi dengan siapa hari ini?</Text>
       <DoctorCategory />
       <DoctorCategory />
       <DoctorCategory />
@@ -28,4 +29,19 @@ export default function Doctor() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  page: {
+    paddingVertical: 30,
+    paddingHorizontal: 16,
+    backgroundColor: colors.white,
+    flex: 1,
+  },
+  welcome: {
+    fontSize: 22,
+    fontFamily: fonts.primary[600],
+    color: colors.text.primary,
+    marginTop: 20,
+    marginBottom: 16,
+    maxWidth: 230,
+  },
+});
