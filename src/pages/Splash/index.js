@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ILLogo} from '../../assets';
-import {colors} from '../../utils';
+import {colors, fonts} from '../../utils';
 
 export default function Splash({navigation}) {
   useEffect(() => {
@@ -28,6 +28,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colors.primary,
     marginTop: 20,
-    fontFamily: 'Nunito-Bold',
+    fontFamily: fonts.primary[700],
   },
 });

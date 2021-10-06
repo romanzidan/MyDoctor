@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableHighlight} from 'react-native';
-import {colors} from '../../../utils';
+import {colors, fonts} from '../../../utils';
 import IconOnly from './IconOnly';
 
 export default function Button({type, title, onPress, icon}) {
@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
       type === 'secondary'
         ? colors.button.secondary.background
         : colors.button.primary.background,
-    paddingVertical: 13,
+    paddingVertical: 15,
     borderRadius: 10,
   }),
   text: type => ({
     fontSize: 18,
-    fontFamily: 'Nunito-SemiBold',
+    fontFamily: fonts.primary[600],
     textAlign: 'center',
     color:
       type === 'secondary'
