@@ -12,8 +12,8 @@ import {colors, fonts} from '../../utils';
 export default function Doctor() {
   return (
     <View style={styles.page}>
-      <View style={styles.content}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
           <Gap height={30} />
           <HomeProfile />
           <Text style={styles.welcome}>
@@ -40,8 +40,8 @@ export default function Doctor() {
           <NewsItem />
           <NewsItem />
           <Gap height={30} />
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -77,6 +77,5 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     color: colors.text.primary,
     marginTop: 30,
-    marginBottom: 16,
   },
 });
