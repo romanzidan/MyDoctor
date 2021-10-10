@@ -1,6 +1,6 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import {IconBackDark} from '../../../assets';
+import {Pressable, StyleSheet} from 'react-native';
+import {IconBackDark, IconBackLight} from '../../../assets';
 
 export default function IconOnly({onPress, icon}) {
   const Icon = () => {
@@ -8,13 +8,25 @@ export default function IconOnly({onPress, icon}) {
       return <IconBackDark />;
     }
     if (icon === 'back-light') {
-      return <IconBackDark />;
+      return <IconBackLight />;
     }
     return <IconBackDark />;
   };
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
+    <Pressable
+      onPress={onPress}
+      style={styles.button}
+      android_ripple={{
+        color: icon === 'back-light' ? '#586579' : '#D9D9D9',
+        borderless: true,
+      }}>
       <Icon />
-    </TouchableOpacity>
+    </Pressable>
   );
 }
+const styles = StyleSheet.create({
+  button: {
+    padding: 5,
+    borderRadius: 30,
+  },
+});

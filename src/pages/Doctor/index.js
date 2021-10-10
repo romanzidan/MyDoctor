@@ -9,7 +9,7 @@ import {
 } from '../../components';
 import {colors, fonts} from '../../utils';
 
-export default function Doctor() {
+export default function Doctor({navigation}) {
   return (
     <View style={styles.page}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -23,7 +23,9 @@ export default function Doctor() {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.category}>
                 <Gap width={16} />
-                <DoctorCategory />
+                <DoctorCategory
+                  onPress={() => navigation.navigate('ChooseDoctor')}
+                />
                 <DoctorCategory />
                 <DoctorCategory />
                 <DoctorCategory />

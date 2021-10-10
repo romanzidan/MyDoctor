@@ -8,9 +8,9 @@ export default function Messages() {
     <View style={styles.page}>
       <View style={styles.content}>
         <Text style={styles.title}>Pesan</Text>
-        <ListDoctor />
-        <ListDoctor />
-        <ListDoctor />
+        <ListDoctor desc="Baik pak, terima kasih banyak atas wakt..." />
+        <ListDoctor desc="Baik pak, terima kasih banyak atas wakt..." />
+        <ListDoctor desc="Baik pak, terima kasih banyak atas wakt..." />
       </View>
     </View>
   );
