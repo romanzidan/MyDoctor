@@ -12,38 +12,40 @@ import {colors, fonts} from '../../utils';
 export default function Doctor({navigation}) {
   return (
     <View style={styles.page}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.content}>
-          <Gap height={30} />
-          <HomeProfile />
-          <Text style={styles.welcome}>
-            Mau konsultasi dengan siapa hari ini?
-          </Text>
-          <View style={styles.wrapperScroll}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.category}>
-                <Gap width={16} />
-                <DoctorCategory
-                  onPress={() => navigation.navigate('ChooseDoctor')}
-                />
-                <DoctorCategory />
-                <DoctorCategory />
-                <DoctorCategory />
-                <Gap width={6} />
-              </View>
-            </ScrollView>
+      <View style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.content}>
+            <Gap height={30} />
+            <HomeProfile />
+            <Text style={styles.welcome}>
+              Mau konsultasi dengan siapa hari ini?
+            </Text>
+            <View style={styles.wrapperScroll}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View style={styles.category}>
+                  <Gap width={16} />
+                  <DoctorCategory
+                    onPress={() => navigation.navigate('ChooseDoctor')}
+                  />
+                  <DoctorCategory />
+                  <DoctorCategory />
+                  <DoctorCategory />
+                  <Gap width={6} />
+                </View>
+              </ScrollView>
+            </View>
+            <Text style={styles.sectionLabel}>Dokter Terbaik</Text>
+            <RatedDoctor />
+            <RatedDoctor />
+            <RatedDoctor />
+            <Text style={styles.sectionLabel}>Berita Terbaru</Text>
+            <NewsItem />
+            <NewsItem />
+            <NewsItem />
+            <Gap height={30} />
           </View>
-          <Text style={styles.sectionLabel}>Dokter Terbaik</Text>
-          <RatedDoctor />
-          <RatedDoctor />
-          <RatedDoctor />
-          <Text style={styles.sectionLabel}>Berita Terbaru</Text>
-          <NewsItem />
-          <NewsItem />
-          <NewsItem />
-          <Gap height={30} />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 }
@@ -53,12 +55,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     flex: 1,
   },
+  container: {
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    overflow: 'hidden',
+  },
   content: {
     backgroundColor: colors.white,
     flex: 1,
     paddingHorizontal: 16,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
   },
   welcome: {
     fontSize: 22,
