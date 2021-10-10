@@ -11,15 +11,15 @@ export default function Chatting({navigation}) {
         title="Ganyu Putri"
         onPress={() => navigation.goBack()}
       />
-      <View style={styles.content}>
-        <ScrollView>
+      <ScrollView>
+        <View style={styles.content}>
           <Text style={styles.chatDate}>Senin, 21 Maret, 2020</Text>
           <ChatItem isMe />
           <ChatItem />
           <ChatItem isMe />
-        </ScrollView>
-      </View>
-      <InputChat />
+        </View>
+      </ScrollView>
+      <InputChat name="Ganyu" />
     </View>
   );
 }

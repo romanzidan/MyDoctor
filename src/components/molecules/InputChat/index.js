@@ -3,11 +3,14 @@ import {StyleSheet, TextInput, View} from 'react-native';
 import {Button} from '../../atoms';
 import {colors, fonts} from '../../../utils';
 
-export default function InputChat() {
+export default function InputChat({name}) {
   return (
     <View style={styles.container}>
-      <TextInput placeholder="Tulis pesan untuk Ganyu" style={styles.input} />
-      <Button title="Send" type="btn-icon-send" dis />
+      <TextInput
+        placeholder={`Tulis pesan untuk ${name}`}
+        style={styles.input}
+      />
+      <Button title="Send" type="btn-icon-send" />
     </View>
   );
 }

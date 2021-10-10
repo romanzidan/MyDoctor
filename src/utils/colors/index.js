@@ -44,4 +44,5 @@ export const colors = {
   cardLight: mainColors.green3,
   cardRipple: mainColors.green4,
   rippleWhite: mainColors.grey3,
+  rippleSendBtn: mainColors.dark2,
 };
