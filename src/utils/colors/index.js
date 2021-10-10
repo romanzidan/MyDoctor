@@ -12,6 +12,7 @@ const mainColors = {
   grey1: '#7D8797',
   grey2: '#E9E9E9',
   grey3: '#DFDFDF',
+  grey4: '#EDEEF0',
 };
 
 export const colors = {
@@ -19,6 +20,7 @@ export const colors = {
   secondary: mainColors.dark1,
   white: mainColors.white1,
   black: mainColors.black1,
+  disable: mainColors.grey4,
   text: {
     primary: mainColors.dark1,
     secondary: mainColors.grey1,
