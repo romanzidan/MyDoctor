@@ -1,6 +1,7 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import {
+  Chatting,
   ChooseDoctor,
   Doctor,
   GetStarted,
@@ -77,7 +78,12 @@ export default function Router() {
       <Stack.Screen
         name="ChooseDoctor"
         component={ChooseDoctor}
-        options={{headerShown: false}}
+        options={{headerShown: false, animation: 'fade'}}
+      />
+      <Stack.Screen
+        name="Chatting"
+        component={Chatting}
+        options={{headerShown: false, animation: 'slide_from_right'}}
       />
     </Stack.Navigator>
   );

@@ -10,6 +10,7 @@ const mainColors = {
   dark2: '#495A75',
   grey1: '#7D8797',
   grey2: '#E9E9E9',
+  grey3: '#DFDFDF',
 };
 
 export const colors = {
@@ -38,4 +39,5 @@ export const colors = {
   border: mainColors.grey2,
   cardLight: mainColors.green3,
   cardRipple: mainColors.green4,
+  rippleWhite: mainColors.grey3,
 };

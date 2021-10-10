@@ -13,7 +13,11 @@ export default function ChooseDoctor({navigation}) {
       />
       <Gap height={4} />
       <ListDoctor type="next" desc="Pria" />
-      <ListDoctor type="next" desc="Pria" />
+      <ListDoctor
+        type="next"
+        desc="Pria"
+        onPress={() => navigation.navigate('Chatting')}
+      />
       <ListDoctor type="next" desc="Pria" />
     </View>
   );

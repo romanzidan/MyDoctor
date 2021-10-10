@@ -1,18 +1,21 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {DummyDoctor1, IconNext} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-export default function ListDoctor({desc, type}) {
+export default function ListDoctor({desc, type, onPress}) {
   return (
-    <View style={styles.container}>
+    <Pressable
+      onPress={onPress}
+      style={styles.container}
+      android_ripple={{color: colors.rippleWhite, borderless: false}}>
       <Image source={DummyDoctor1} style={styles.avatar} />
       <View style={styles.content}>
         <Text style={styles.name}>Alok Gunawan</Text>
         <Text style={styles.desc}>{desc}</Text>
       </View>
       {type === 'next' && <IconNext />}
-    </View>
+    </Pressable>
   );
 }
 
