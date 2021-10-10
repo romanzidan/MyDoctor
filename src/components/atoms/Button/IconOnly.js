@@ -17,7 +17,7 @@ export default function IconOnly({onPress, icon}) {
       onPress={onPress}
       style={styles.button}
       android_ripple={{
-        color: icon === 'back-light' ? '#586579' : '#D9D9D9',
+        color: icon === 'back-light' ? '#303E56' : '#D9D9D9',
         borderless: true,
       }}>
       <Icon />
