@@ -11,6 +11,7 @@ export default function UserProfile({navigation}) {
       title: 'Edit Profile',
       desc: 'Terakhir diperbarui kemarin',
       icon: 'edit-profile',
+      onPress: () => navigation.navigate('EditProfile'),
     },
     {
       id: 2,
@@ -34,7 +35,7 @@ export default function UserProfile({navigation}) {
   return (
     <View style={styles.page}>
       <Header title="Profile" onPress={() => navigation.goBack()} />
-      <Profile name="Roman Zidan" profession="Mahasiswa" avatar={DummyUser} />
+      <Profile name="Roman Zidan" desc="Mahasiswa" avatar={DummyUser} />
       <Gap height={30} />
       {data.map(item => (
         <List
@@ -43,6 +44,7 @@ export default function UserProfile({navigation}) {
           desc={item.desc}
           icon={item.icon}
           type="next"
+          onPress={item.onPress}
         />
       ))}
     </View>

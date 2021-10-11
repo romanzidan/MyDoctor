@@ -1,15 +1,17 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {IconRemovePhoto} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-export default function Profile({name, profession, avatar}) {
+export default function Profile({name, avatar, desc}) {
   return (
     <View style={styles.container}>
       <View style={styles.borderAvatar}>
         <Image source={avatar} style={styles.avatar} />
+        <IconRemovePhoto style={styles.icon} />
       </View>
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.profession}>{profession}</Text>
+      {name && <Text style={styles.name}>{name}</Text>}
+      {desc && <Text style={styles.desc}>{desc}</Text>}
     </View>
   );
 }
@@ -40,10 +42,15 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     marginTop: 16,
   },
-  profession: {
+  desc: {
     fontSize: 16,
     fontFamily: fonts.primary[600],
     color: colors.text.secondary,
     marginTop: 2,
+  },
+  icon: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
   },
 });

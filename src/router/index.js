@@ -4,6 +4,7 @@ import {
   Chatting,
   ChooseDoctor,
   Doctor,
+  EditProfile,
   GetStarted,
   Hospitals,
   Login,
@@ -89,6 +90,11 @@ export default function Router() {
       <Stack.Screen
         name="UserProfile"
         component={UserProfile}
+        options={{headerShown: false, animation: 'slide_from_right'}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
         options={{headerShown: false, animation: 'slide_from_right'}}
       />
     </Stack.Navigator>
