@@ -21,6 +21,7 @@ export default function EditProfile({navigation}) {
           <Input label="Password" />
           <Gap height={40} />
           <Button title="Simpan Profile" />
+          <Gap height={20} />
         </View>
       </ScrollView>
     </View>
