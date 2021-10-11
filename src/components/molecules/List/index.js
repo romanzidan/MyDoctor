@@ -1,17 +1,38 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {DummyDoctor1, IconNext} from '../../../assets';
+import {
+  IconNext,
+  IconEditProfile,
+  IconLanguage,
+  IconStar,
+  IconHelp,
+} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-export default function ListDoctor({desc, type, onPress}) {
+export default function List({image, icon, title, desc, type, onPress}) {
+  const Icon = () => {
+    if (icon === 'edit-profile') {
+      return <IconEditProfile />;
+    }
+    if (icon === 'language') {
+      return <IconLanguage />;
+    }
+    if (icon === 'rate') {
+      return <IconStar />;
+    }
+    if (icon === 'help') {
+      return <IconHelp />;
+    }
+    return <IconEditProfile />;
+  };
   return (
     <Pressable
       onPress={onPress}
       style={styles.container}
       android_ripple={{color: colors.rippleWhite, borderless: false}}>
-      <Image source={DummyDoctor1} style={styles.avatar} />
+      {icon ? <Icon /> : <Image source={image} style={styles.avatar} />}
       <View style={styles.content}>
-        <Text style={styles.name}>Alok Gunawan</Text>
+        <Text style={styles.name}>{title}</Text>
         <Text style={styles.desc}>{desc}</Text>
       </View>
       {type === 'next' && <IconNext />}
@@ -30,12 +51,12 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
+    marginLeft: 16,
   },
   avatar: {
     width: 50,
     height: 50,
     borderRadius: 50 / 2,
-    marginRight: 12,
   },
   name: {
     fontSize: 18,

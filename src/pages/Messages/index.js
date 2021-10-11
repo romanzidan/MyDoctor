@@ -1,16 +1,60 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {ListDoctor} from '../../components';
+import {
+  DummyDoctor1,
+  DummyDoctor2,
+  DummyDoctor3,
+  DummyDoctor4,
+  DummyDoctor5,
+} from '../../assets';
+import {List} from '../../components';
 import {colors, fonts} from '../../utils';
 
 export default function Messages() {
+  const [data] = useState([
+    {
+      id: 1,
+      name: 'Ganyu Putri',
+      image: DummyDoctor3,
+      desc: 'Baik pak, terima kasih banyak atas wakt...',
+    },
+    {
+      id: 2,
+      name: 'Alok Gunawan',
+      image: DummyDoctor1,
+      desc: 'Baik pak, terima kasih banyak atas wakt...',
+    },
+    {
+      id: 3,
+      name: 'Chrono Ronald',
+      image: DummyDoctor2,
+      desc: 'Baik pak, terima kasih banyak atas wakt...',
+    },
+    {
+      id: 4,
+      name: 'Dasha Keqing',
+      image: DummyDoctor4,
+      desc: 'Baik pak, terima kasih banyak atas wakt...',
+    },
+    {
+      id: 5,
+      name: 'Steve Diluc',
+      image: DummyDoctor5,
+      desc: 'Baik pak, terima kasih banyak atas wakt...',
+    },
+  ]);
   return (
     <View style={styles.page}>
       <View style={styles.content}>
         <Text style={styles.title}>Pesan</Text>
-        <ListDoctor desc="Baik pak, terima kasih banyak atas wakt..." />
-        <ListDoctor desc="Baik pak, terima kasih banyak atas wakt..." />
-        <ListDoctor desc="Baik pak, terima kasih banyak atas wakt..." />
+        {data.map(item => (
+          <List
+            key={item.id}
+            title={item.name}
+            desc={item.desc}
+            image={item.image}
+          />
+        ))}
       </View>
     </View>
   );

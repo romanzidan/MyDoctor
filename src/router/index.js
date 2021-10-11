@@ -11,6 +11,7 @@ import {
   Register,
   Splash,
   UploadPhoto,
+  UserProfile,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -83,6 +84,11 @@ export default function Router() {
       <Stack.Screen
         name="Chatting"
         component={Chatting}
+        options={{headerShown: false, animation: 'slide_from_right'}}
+      />
+      <Stack.Screen
+        name="UserProfile"
+        component={UserProfile}
         options={{headerShown: false, animation: 'slide_from_right'}}
       />
     </Stack.Navigator>

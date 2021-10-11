@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {DummyDoctor3, IconRate} from '../../../assets';
 import {colors, fonts} from '../../../utils';
-import {DummyDoctor3, IconStar} from '../../../assets';
 
 export default function RatedDoctor() {
   return (
@@ -12,11 +12,11 @@ export default function RatedDoctor() {
         <Text style={styles.category}>Psikiater</Text>
       </View>
       <View style={styles.rate}>
-        <IconStar />
-        <IconStar />
-        <IconStar />
-        <IconStar />
-        <IconStar />
+        <IconRate />
+        <IconRate />
+        <IconRate />
+        <IconRate />
+        <IconRate />
       </View>
     </View>
   );
