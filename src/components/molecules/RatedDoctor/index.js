@@ -1,11 +1,14 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {DummyDoctor3, IconRate} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-export default function RatedDoctor() {
+export default function RatedDoctor({onPress}) {
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      android_ripple={{color: colors.rippleWhite}}
+      onPress={onPress}>
       <Image source={DummyDoctor3} style={styles.avatar} />
       <View style={styles.profile}>
         <Text style={styles.name}>Ganyu Putri</Text>
@@ -18,7 +21,7 @@ export default function RatedDoctor() {
         <IconRate />
         <IconRate />
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -26,7 +29,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: 16,
+    paddingVertical: 8,
+    marginHorizontal: -16,
+    paddingHorizontal: 16,
+    alignItems: 'center',
   },
   avatar: {
     width: 50,

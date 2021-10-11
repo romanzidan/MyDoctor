@@ -35,7 +35,8 @@ export default function Doctor({navigation}) {
               </ScrollView>
             </View>
             <Text style={styles.sectionLabel}>Dokter Terbaik</Text>
-            <RatedDoctor />
+            <Gap height={8} />
+            <RatedDoctor onPress={() => navigation.navigate('DoctorProfile')} />
             <RatedDoctor />
             <RatedDoctor />
             <Text style={styles.sectionLabel}>Berita Terbaru</Text>

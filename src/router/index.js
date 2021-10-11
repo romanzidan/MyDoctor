@@ -13,9 +13,11 @@ import {
   Splash,
   UploadPhoto,
   UserProfile,
+  DoctorProfile,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
+import {TransitionPresets} from '@react-navigation/stack';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -95,6 +97,11 @@ export default function Router() {
       <Stack.Screen
         name="EditProfile"
         component={EditProfile}
+        options={{headerShown: false, animation: 'slide_from_right'}}
+      />
+      <Stack.Screen
+        name="DoctorProfile"
+        component={DoctorProfile}
         options={{headerShown: false, animation: 'slide_from_right'}}
       />
     </Stack.Navigator>
