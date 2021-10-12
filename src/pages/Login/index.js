@@ -17,7 +17,12 @@ export default function Login({navigation}) {
       <Gap height={40} />
       <Button title="Masuk" onPress={() => navigation.replace('MainApp')} />
       <Gap height={30} />
-      <Link title="Daftar Akun Baru" size={16} align="center" />
+      <Link
+        title="Daftar Akun Baru"
+        size={16}
+        align="center"
+        onPress={() => navigation.navigate('Register')}
+      />
     </View>
   );
 }

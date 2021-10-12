@@ -9,7 +9,7 @@ export default function EditProfile({navigation}) {
     <View style={styles.page}>
       <Header title="Edit Profile" onPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Profile avatar={DummyUser} />
+        <Profile avatar={DummyUser} isRemove />
         <Gap height={26} />
         <View style={styles.content}>
           <Input label="Nama Lengkap" />

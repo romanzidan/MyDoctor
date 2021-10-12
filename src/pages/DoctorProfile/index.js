@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {DummyDoctor3} from '../../assets';
 import {Button, Gap, Header, Profile, ProfileItem} from '../../components';
 import {colors} from '../../utils';
@@ -21,7 +21,10 @@ export default function DoctorProfile({navigation}) {
       />
       <ProfileItem label="No. STR" value="0000116622081996" />
       <View style={styles.content}>
-        <Button title="Mulai Konsultasi" />
+        <Button
+          title="Mulai Konsultasi"
+          onPress={() => navigation.navigate('Chatting')}
+        />
       </View>
     </View>
   );

@@ -1,6 +1,7 @@
 const mainColors = {
   white1: 'white',
   white2: '#F3F3F3',
+  whiteTransparent: 'rgba(255, 255, 255, 0.7)',
   black1: 'black',
   green1: '#1EA0BD',
   green2: '#24BBDD',
@@ -35,7 +36,7 @@ export const colors = {
       underlay: mainColors.green2,
     },
     secondary: {
-      background: mainColors.white1,
+      background: mainColors.whiteTransparent,
       text: mainColors.dark1,
       underlay: mainColors.white2,
     },

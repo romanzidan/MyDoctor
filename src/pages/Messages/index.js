@@ -10,13 +10,14 @@ import {
 import {List} from '../../components';
 import {colors, fonts} from '../../utils';
 
-export default function Messages() {
+export default function Messages({navigation}) {
   const [data] = useState([
     {
       id: 1,
       name: 'Ganyu Putri',
       image: DummyDoctor3,
       desc: 'Baik pak, terima kasih banyak atas wakt...',
+      onPress: () => navigation.navigate('Chatting'),
     },
     {
       id: 2,
@@ -53,6 +54,7 @@ export default function Messages() {
             title={item.name}
             desc={item.desc}
             image={item.image}
+            onPress={item.onPress}
           />
         ))}
       </View>
