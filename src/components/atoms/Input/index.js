@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {colors, fonts} from '../../../utils';
 
-export default function Input({label, type}) {
+export default function Input({label, type, value, onChangeText}) {
   const [border, setBorder] = useState(colors.border);
   const [labelColor, setLabelColor] = useState(colors.text.secondary);
   const onFocusForm = () => {
@@ -16,21 +16,16 @@ export default function Input({label, type}) {
   return (
     <View>
       <Text style={styles.label(labelColor)}>{label}</Text>
-      {type === 'password' ? (
-        <TextInput
-          onFocus={onFocusForm}
-          onBlur={onBlurForm}
-          style={styles.input(border)}
-          secureTextEntry
-          autoCorrect={false}
-        />
-      ) : (
-        <TextInput
-          onFocus={onFocusForm}
-          onBlur={onBlurForm}
-          style={styles.input(border)}
-        />
-      )}
+      <TextInput
+        onFocus={onFocusForm}
+        onBlur={onBlurForm}
+        style={styles.input(border)}
+        secureTextEntry={type === 'password' ? true : false}
+        autoCorrect={type === 'password' ? false : true}
+        onChangeText={onChangeText}
+        value={value}
+        keyboardType={type === 'email' ? 'email-address' : 'default'}
+      />
     </View>
   );
 }
