@@ -4,15 +4,18 @@ import {colors, fonts} from '../../../utils';
 
 export default function Input({label}) {
   const [border, setBorder] = useState(colors.border);
+  const [labelColor, setLabelColor] = useState(colors.text.secondary);
   const onFocusForm = () => {
     setBorder(colors.borderActive);
+    setLabelColor(colors.text.active);
   };
   const onBlurForm = () => {
     setBorder(colors.border);
+    setLabelColor(colors.text.secondary);
   };
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={styles.label(labelColor)}>{label}</Text>
       <TextInput
         onFocus={onFocusForm}
         onBlur={onBlurForm}
@@ -31,10 +34,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.text.primary,
   }),
-  label: {
+  label: labelColor => ({
     fontSize: 16,
-    color: colors.text.secondary,
+    color: labelColor,
     marginBottom: 6,
     fontFamily: fonts.primary[400],
-  },
+  }),
 });
