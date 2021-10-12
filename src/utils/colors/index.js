@@ -14,6 +14,7 @@ const mainColors = {
   grey2: '#E9E9E9',
   grey3: '#DFDFDF',
   grey4: '#EDEEF0',
+  blue1: '#0066CB',
 };
 
 export const colors = {
@@ -42,6 +43,7 @@ export const colors = {
     },
   },
   border: mainColors.grey2,
+  borderActive: mainColors.green1,
   cardLight: mainColors.green3,
   cardRipple: mainColors.green4,
   rippleWhite: mainColors.grey3,
