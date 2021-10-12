@@ -12,7 +12,7 @@ export default function Login({navigation}) {
         <Text style={styles.title}>Masuk dan mulai berkonsultasi</Text>
         <Input label="Email Adress" />
         <Gap height={24} />
-        <Input label="Password" />
+        <Input label="Password" type="password" />
         <Gap height={10} />
         <Link title="Lupa Password" size={13} />
         <Gap height={40} />
