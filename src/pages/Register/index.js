@@ -1,17 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
-import {colors} from '../../utils';
+import {colors, useForm} from '../../utils';
 
 export default function Register({navigation}) {
-  const [fullName, setFullName] = useState('');
-  const [profession, setProfession] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useForm({
+    fullName: '',
+    profession: '',
+    email: '',
+    password: '',
+  });
 
   const onContinue = () => {
     // navigation.navigate('UploadPhoto');
-    console.log(fullName, profession, email, password);
+    console.log(form);
   };
   return (
     <View style={styles.page}>
@@ -21,28 +23,28 @@ export default function Register({navigation}) {
         <View style={styles.content}>
           <Input
             label="Nama Lengkap"
-            value={fullName}
-            onChangeText={value => setFullName(value)}
+            value={form.fullName}
+            onChangeText={value => setForm('fullName', value)}
           />
           <Gap height={24} />
           <Input
             label="Pekerjaan"
-            value={profession}
-            onChangeText={value => setProfession(value)}
+            value={form.profession}
+            onChangeText={value => setForm('profession', value)}
           />
           <Gap height={24} />
           <Input
             label="Email"
-            value={email}
-            onChangeText={value => setEmail(value)}
+            value={form.email}
+            onChangeText={value => setForm('email', value)}
             type="email"
           />
           <Gap height={24} />
           <Input
             label="Password"
-            value={password}
+            value={form.password}
             type="password"
-            onChangeText={value => setPassword(value)}
+            onChangeText={value => setForm('password', value)}
           />
           <Gap height={40} />
           <Button title="Lanjutkan" onPress={onContinue} />
