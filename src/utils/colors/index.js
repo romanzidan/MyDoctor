@@ -3,6 +3,7 @@ const mainColors = {
   white2: '#F3F3F3',
   whiteTransparent: 'rgba(255, 255, 255, 0.7)',
   black1: 'black',
+  black2: 'rgba(0,0,0,0.5)',
   green1: '#1EA0BD',
   green2: '#24BBDD',
   green3: '#EDFCFD',
@@ -49,4 +50,5 @@ export const colors = {
   cardRipple: mainColors.green4,
   rippleWhite: mainColors.grey3,
   rippleSendBtn: mainColors.dark2,
+  loadingBackground: mainColors.black2,
 };
