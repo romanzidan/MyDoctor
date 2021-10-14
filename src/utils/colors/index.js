@@ -16,6 +16,7 @@ const mainColors = {
   grey3: '#DFDFDF',
   grey4: '#EDEEF0',
   blue1: '#0066CB',
+  red1: '#E06379',
 };
 
 export const colors = {
@@ -51,4 +52,5 @@ export const colors = {
   rippleWhite: mainColors.grey3,
   rippleSendBtn: mainColors.dark2,
   loadingBackground: mainColors.black2,
+  error: mainColors.red1,
 };

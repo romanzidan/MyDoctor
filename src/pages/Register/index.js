@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input, Loading} from '../../components';
 import {colors, useForm} from '../../utils';
 import {firebaseConfig} from '../../config';
+import {showMessage} from 'react-native-flash-message';
 
 //firebase
 import {initializeApp} from 'firebase/app';
@@ -25,6 +26,8 @@ export default function Register({navigation}) {
     // navigation.navigate('UploadPhoto');
     console.log(form);
     setLoading(true);
+
+    //register
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, form.email, form.password)
       .then(userCredential => {
@@ -38,8 +41,12 @@ export default function Register({navigation}) {
         // const errorCode = error.code;
         const errorMessage = error.message;
         setLoading(false);
-        console.log('error ', errorMessage);
-        // ..
+        showMessage({
+          message: errorMessage,
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
       });
   };
   return (
