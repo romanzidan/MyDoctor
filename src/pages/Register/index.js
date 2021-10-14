@@ -2,8 +2,16 @@ import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
 import {colors, useForm} from '../../utils';
+import {firebaseConfig} from '../../config';
+
+//firebase
+import {initializeApp} from 'firebase/app';
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 
 export default function Register({navigation}) {
+  //initial firebase
+  initializeApp(firebaseConfig);
+
   const [form, setForm] = useForm({
     fullName: '',
     profession: '',
@@ -14,6 +22,20 @@ export default function Register({navigation}) {
   const onContinue = () => {
     // navigation.navigate('UploadPhoto');
     console.log(form);
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, form.email, form.password)
+      .then(userCredential => {
+        // Signed in
+        const user = userCredential.user;
+        console.log('register success', user);
+        // ...
+      })
+      .catch(error => {
+        // const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('error ', errorMessage);
+        // ..
+      });
   };
   return (
     <View style={styles.page}>
