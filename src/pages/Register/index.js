@@ -29,10 +29,10 @@ export default function Register({navigation}) {
     createUserWithEmailAndPassword(auth, form.email, form.password)
       .then(userCredential => {
         setLoading(false);
+        setForm('reset');
         // Signed in
         const user = userCredential.user;
         console.log('register success', user);
-        // ...
       })
       .catch(error => {
         // const errorCode = error.code;
