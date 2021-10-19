@@ -35,6 +35,9 @@ export default function Register({navigation}) {
           profession: form.profession,
           email: form.email,
         };
+        Firebase.database()
+          .ref('users/' + user.uid + '/')
+          .set(data);
         showMessage({
           message: 'Daftar Akun Berhasil',
           description: 'Akun anda telah berhasil terdaftar, silahkan login!',
