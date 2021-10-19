@@ -16,6 +16,7 @@ const mainColors = {
   grey2: '#E9E9E9',
   grey3: '#DFDFDF',
   grey4: '#EDEEF0',
+  grey5: '#B1B7C2',
   blue1: '#0066CB',
   red1: '#E06379',
 };
@@ -44,6 +45,10 @@ export const colors = {
       background: mainColors.whiteTransparent,
       text: mainColors.dark1,
       underlay: mainColors.white2,
+    },
+    disable: {
+      background: mainColors.grey3,
+      text: mainColors.grey5,
     },
   },
   border: mainColors.grey2,
