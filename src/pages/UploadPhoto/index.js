@@ -4,6 +4,7 @@ import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
 import {Button, Gap, Header, Link} from '../../components';
 import {colors, fonts} from '../../utils';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {showMessage} from 'react-native-flash-message';
 export default function UploadPhoto({navigation}) {
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
@@ -11,10 +12,19 @@ export default function UploadPhoto({navigation}) {
     launchImageLibrary(
       {saveToPhotos: true, mediaType: 'photo', maxWidth: 800, maxHeight: 800},
       response => {
-        const source = {uri: response.assets[0].uri};
-        // console.log('response: ', source);
-        setPhoto(source);
-        setHasPhoto(true);
+        if (response.didCancel || response.errorCode) {
+          showMessage({
+            message: 'Gagal Upload Foto',
+            description: response.errorMessage,
+            type: 'default',
+            backgroundColor: colors.error,
+            color: colors.white,
+          });
+        } else {
+          const source = {uri: response.assets[0].uri};
+          setPhoto(source);
+          setHasPhoto(true);
+        }
       },
     );
   };
