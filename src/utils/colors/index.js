@@ -8,6 +8,7 @@ const mainColors = {
   green2: '#24BBDD',
   green3: '#EDFCFD',
   green4: '#CEF2F4',
+  green5: '#4DB6AC',
   dark1: '#112340',
   dark2: '#495A75',
   dark3: '#8092AF',
@@ -53,4 +54,5 @@ export const colors = {
   rippleSendBtn: mainColors.dark2,
   loadingBackground: mainColors.black2,
   error: mainColors.red1,
+  success: mainColors.green5,
 };

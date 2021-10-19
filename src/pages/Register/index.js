@@ -2,16 +2,11 @@ import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input, Loading} from '../../components';
 import {colors, useForm} from '../../utils';
-import {firebaseConfig} from '../../config';
+import {Firebase} from '../../config';
 import {showMessage} from 'react-native-flash-message';
-
-//firebase
-import {initializeApp} from 'firebase/app';
-import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 
 export default function Register({navigation}) {
   //initial firebase
-  initializeApp(firebaseConfig);
 
   const [form, setForm] = useForm({
     fullName: '',
@@ -24,25 +19,51 @@ export default function Register({navigation}) {
 
   const onContinue = () => {
     // navigation.navigate('UploadPhoto');
-    console.log(form);
     setLoading(true);
 
     //register
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, form.email, form.password)
+    Firebase.auth()
+      .createUserWithEmailAndPassword(form.email, form.password)
       .then(userCredential => {
         setLoading(false);
         setForm('reset');
         // Signed in
         const user = userCredential.user;
         console.log('register success', user);
+        const data = {
+          fullName: form.fullName,
+          profession: form.profession,
+          email: form.email,
+        };
+        showMessage({
+          message: 'Daftar Akun Berhasil',
+          description: 'Akun anda telah berhasil terdaftar, silahkan login!',
+          type: 'default',
+          backgroundColor: colors.success,
+          color: colors.white,
+        });
       })
       .catch(error => {
-        // const errorCode = error.code;
-        const errorMessage = error.message;
+        const errorCode = error.code.split('auth/')[1];
+        let errorMessage;
+        switch (errorCode) {
+          case 'invalid-email':
+            errorMessage = 'Email tidak valid !';
+            break;
+          case 'weak-password':
+            errorMessage = 'Password minimal 6 karakter !';
+            break;
+          case 'email-already-in-use':
+            errorMessage = 'Email sudah terdaftar';
+            break;
+          default:
+            errorMessage = 'Daftar akun gagal !';
+            break;
+        }
         setLoading(false);
         showMessage({
-          message: errorMessage,
+          message: 'Daftar Akun Gagal',
+          description: errorMessage,
           type: 'default',
           backgroundColor: colors.error,
           color: colors.white,
