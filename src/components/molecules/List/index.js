@@ -6,6 +6,7 @@ import {
   IconLanguage,
   IconStar,
   IconHelp,
+  IconLogout,
 } from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
@@ -22,6 +23,9 @@ export default function List({image, icon, title, desc, type, onPress}) {
     }
     if (icon === 'help') {
       return <IconHelp />;
+    }
+    if (icon === 'logout') {
+      return <IconLogout />;
     }
     return <IconEditProfile />;
   };

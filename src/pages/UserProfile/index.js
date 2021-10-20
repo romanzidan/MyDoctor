@@ -27,9 +27,9 @@ export default function UserProfile({navigation}) {
     },
     {
       id: 4,
-      title: 'Pusat Bantuan',
-      desc: 'Baca pedoman ',
-      icon: 'help',
+      title: 'Logout',
+      desc: 'Keluar dari akun ini',
+      icon: 'logout',
     },
   ]);
 

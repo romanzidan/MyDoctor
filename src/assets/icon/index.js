@@ -16,6 +16,7 @@ import IconSendLight from './ic-send-light.svg';
 import IconLanguage from './ic-language.svg';
 import IconEditProfile from './ic-edit-profile.svg';
 import IconHelp from './ic-help.svg';
+import IconLogout from './ic-logout.svg';
 
 export {
   IconBackDark,
@@ -36,4 +37,5 @@ export {
   IconLanguage,
   IconEditProfile,
   IconHelp,
+  IconLogout,
 };
