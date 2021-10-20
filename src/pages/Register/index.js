@@ -51,8 +51,7 @@ export default function Register({navigation}) {
 
           storeData('user', data);
           // succes register
-          navigation.navigate('UploadPhoto');
-          console.log('register berhasil: ', user);
+          navigation.navigate('UploadPhoto', data);
         })
         .catch(error => {
           const errorCode = error.code.split('auth/')[1];

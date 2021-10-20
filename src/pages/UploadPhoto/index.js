@@ -5,9 +5,10 @@ import {Button, Gap, Header, Link} from '../../components';
 import {colors, fonts} from '../../utils';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
-export default function UploadPhoto({navigation}) {
+export default function UploadPhoto({navigation, route}) {
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
+  const {fullName, profession} = route.params;
   const getImage = () => {
     launchImageLibrary(
       {saveToPhotos: true, mediaType: 'photo', maxWidth: 800, maxHeight: 800},
@@ -43,8 +44,8 @@ export default function UploadPhoto({navigation}) {
             {hasPhoto && <IconRemovePhoto style={styles.addPhoto} />}
             {!hasPhoto && <IconAddPhoto style={styles.addPhoto} />}
           </View>
-          <Text style={styles.name}>Roman Zidan Ramadhan</Text>
-          <Text style={styles.profession}>Mahasiswa</Text>
+          <Text style={styles.name}>{fullName}</Text>
+          <Text style={styles.profession}>{profession}</Text>
         </View>
         <View>
           <Button title="Upload dan Lanjutkan" disable={!hasPhoto} />
