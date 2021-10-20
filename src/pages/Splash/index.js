@@ -1,12 +1,21 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ILLogo} from '../../assets';
+import {Firebase} from '../../config';
 import {colors, fonts} from '../../utils';
 
 export default function Splash({navigation}) {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('GetStarted');
+      Firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          // user login
+          navigation.replace('MainApp');
+        } else {
+          // user logout
+          navigation.replace('GetStarted');
+        }
+      });
     }, 3000);
   }, [navigation]);
   return (
