@@ -2,16 +2,26 @@ import React, {useState} from 'react';
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
 import {Button, Gap, Header, Link} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, storeData} from '../../utils';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessage} from 'react-native-flash-message';
+import {Firebase} from '../../config';
+
 export default function UploadPhoto({navigation, route}) {
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
-  const {fullName, profession} = route.params;
+  const {fullName, profession, uid} = route.params;
+  const [photoForDB, setPhotoForDB] = useState('');
+
   const getImage = () => {
     launchImageLibrary(
-      {saveToPhotos: true, mediaType: 'photo', maxWidth: 800, maxHeight: 800},
+      {
+        saveToPhotos: true,
+        includeBase64: true,
+        mediaType: 'photo',
+        maxWidth: 800,
+        maxHeight: 800,
+      },
       response => {
         if (response.didCancel || response.errorCode) {
           showMessage({
@@ -23,12 +33,25 @@ export default function UploadPhoto({navigation, route}) {
           });
         } else {
           const source = {uri: response.assets[0].uri};
+
+          setPhotoForDB(
+            `data:${response.assets[0].type};base64, ${response.assets[0].base64}`,
+          );
           setPhoto(source);
           setHasPhoto(true);
         }
       },
     );
   };
+
+  const uploadAndContinue = () => {
+    Firebase.database()
+      .ref('users/' + uid + '/')
+      .update({photo: photoForDB});
+
+    navigation.replace('MainApp');
+  };
+
   return (
     <View style={styles.page}>
       <Header title="Upload Photo" onPress={() => navigation.goBack()} />
@@ -48,7 +71,11 @@ export default function UploadPhoto({navigation, route}) {
           <Text style={styles.profession}>{profession}</Text>
         </View>
         <View>
-          <Button title="Upload dan Lanjutkan" disable={!hasPhoto} />
+          <Button
+            title="Upload dan Lanjutkan"
+            onPress={uploadAndContinue}
+            disable={!hasPhoto}
+          />
           <Gap height={30} />
           <Link title="Lewati" align="center" size={16} />
         </View>

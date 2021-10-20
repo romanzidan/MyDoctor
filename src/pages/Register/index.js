@@ -39,11 +39,11 @@ export default function Register({navigation}) {
           setForm('reset');
           // Signed in
           const user = userCredential.user;
-          console.log('register success', user);
           const data = {
             fullName: form.fullName,
             profession: form.profession,
             email: form.email,
+            uid: user.uid,
           };
           Firebase.database()
             .ref('users/' + user.uid + '/')
@@ -67,7 +67,7 @@ export default function Register({navigation}) {
               errorMessage = 'Email sudah terdaftar';
               break;
             default:
-              errorMessage = 'Daftar akun gagal !';
+              errorMessage = error.message;
               break;
           }
           setLoading(false);
