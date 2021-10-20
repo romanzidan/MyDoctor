@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {DummyUser} from '../../assets';
+import {ILNullPhoto} from '../../assets';
 import {Gap, Header, List, Profile} from '../../components';
-import {colors} from '../../utils';
+import {colors, getData} from '../../utils';
 
 export default function UserProfile({navigation}) {
-  const [data] = useState([
+  const [listItem] = useState([
     {
       id: 1,
       title: 'Edit Profile',
@@ -32,12 +32,33 @@ export default function UserProfile({navigation}) {
       icon: 'help',
     },
   ]);
+
+  const [profile, setProfile] = useState({
+    fullName: '',
+    profession: '',
+    photo: ILNullPhoto,
+  });
+
+  useEffect(() => {
+    getData('user').then(res => {
+      const data = res;
+      data.photo = {uri: res.photo};
+      setProfile(data);
+    });
+  }, []);
+
   return (
     <View style={styles.page}>
       <Header title="Profile" onPress={() => navigation.goBack()} />
-      <Profile name="Roman Zidan" desc="Mahasiswa" avatar={DummyUser} />
+      {profile.fullName.length > 0 && (
+        <Profile
+          name={profile.fullName}
+          desc={profile.profession}
+          avatar={profile.photo}
+        />
+      )}
       <Gap height={30} />
-      {data.map(item => (
+      {listItem.map(item => (
         <List
           key={item.id}
           title={item.title}
