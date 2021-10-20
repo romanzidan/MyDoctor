@@ -19,8 +19,9 @@ export default function UploadPhoto({navigation, route}) {
         saveToPhotos: true,
         includeBase64: true,
         mediaType: 'photo',
-        maxWidth: 800,
-        maxHeight: 800,
+        maxWidth: 500,
+        maxHeight: 500,
+        quality: 1,
       },
       response => {
         if (response.didCancel || response.errorCode) {
@@ -48,6 +49,11 @@ export default function UploadPhoto({navigation, route}) {
     Firebase.database()
       .ref('users/' + uid + '/')
       .update({photo: photoForDB});
+
+    const data = route.params;
+    data.photo = photoForDB;
+
+    storeData('user', data);
 
     navigation.replace('MainApp');
   };
