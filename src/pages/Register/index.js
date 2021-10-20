@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Button, Gap, Header, Input, Loading} from '../../components';
-import {colors, useForm} from '../../utils';
+import {colors, getData, storeData, useForm} from '../../utils';
 import {Firebase} from '../../config';
 import {showMessage} from 'react-native-flash-message';
 
@@ -18,60 +18,69 @@ export default function Register({navigation}) {
   const [loading, setLoading] = useState(false);
 
   const onContinue = () => {
-    // navigation.navigate('UploadPhoto');
+    console.log(form);
     setLoading(true);
 
-    //register
-    Firebase.auth()
-      .createUserWithEmailAndPassword(form.email, form.password)
-      .then(userCredential => {
-        setLoading(false);
-        setForm('reset');
-        // Signed in
-        const user = userCredential.user;
-        console.log('register success', user);
-        const data = {
-          fullName: form.fullName,
-          profession: form.profession,
-          email: form.email,
-        };
-        Firebase.database()
-          .ref('users/' + user.uid + '/')
-          .set(data);
-        showMessage({
-          message: 'Daftar Akun Berhasil',
-          description: 'Akun anda telah berhasil terdaftar, silahkan login!',
-          type: 'default',
-          backgroundColor: colors.success,
-          color: colors.white,
-        });
-      })
-      .catch(error => {
-        const errorCode = error.code.split('auth/')[1];
-        let errorMessage;
-        switch (errorCode) {
-          case 'invalid-email':
-            errorMessage = 'Email tidak valid !';
-            break;
-          case 'weak-password':
-            errorMessage = 'Password minimal 6 karakter !';
-            break;
-          case 'email-already-in-use':
-            errorMessage = 'Email sudah terdaftar';
-            break;
-          default:
-            errorMessage = 'Daftar akun gagal !';
-            break;
-        }
-        setLoading(false);
-        showMessage({
-          message: 'Daftar Akun Gagal',
-          description: errorMessage,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+    if (!form.fullName || !form.profession || !form.email || !form.password) {
+      setLoading(false);
+      showMessage({
+        message: 'Daftar Akun Gagal',
+        description: 'Semua data wajib diisi.',
+        type: 'default',
+        backgroundColor: colors.error,
+        color: colors.white,
       });
+    } else {
+      // Register Handle
+      Firebase.auth()
+        .createUserWithEmailAndPassword(form.email, form.password)
+        .then(userCredential => {
+          setLoading(false);
+          setForm('reset');
+          // Signed in
+          const user = userCredential.user;
+          console.log('register success', user);
+          const data = {
+            fullName: form.fullName,
+            profession: form.profession,
+            email: form.email,
+          };
+          Firebase.database()
+            .ref('users/' + user.uid + '/')
+            .set(data);
+
+          storeData('user', data);
+          // succes register
+          navigation.navigate('UploadPhoto');
+          console.log('register berhasil: ', user);
+        })
+        .catch(error => {
+          const errorCode = error.code.split('auth/')[1];
+          let errorMessage;
+          switch (errorCode) {
+            case 'invalid-email':
+              errorMessage = 'Email tidak valid !';
+              break;
+            case 'weak-password':
+              errorMessage = 'Password minimal 6 karakter !';
+              break;
+            case 'email-already-in-use':
+              errorMessage = 'Email sudah terdaftar';
+              break;
+            default:
+              errorMessage = 'Daftar akun gagal !';
+              break;
+          }
+          setLoading(false);
+          showMessage({
+            message: 'Daftar Akun Gagal',
+            description: errorMessage,
+            type: 'default',
+            backgroundColor: colors.error,
+            color: colors.white,
+          });
+        });
+    }
   };
   return (
     <>
