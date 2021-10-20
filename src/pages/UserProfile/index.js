@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {ILNullPhoto} from '../../assets';
-import {Gap, Header, List, Profile} from '../../components';
+import {Gap, Header, List, Profile, ProfilePlaceholder} from '../../components';
 import {colors, getData} from '../../utils';
 
 export default function UserProfile({navigation}) {
@@ -50,13 +50,16 @@ export default function UserProfile({navigation}) {
   return (
     <View style={styles.page}>
       <Header title="Profile" onPress={() => navigation.goBack()} />
-      {profile.fullName.length > 0 && (
+      {profile.fullName.length > 0 ? (
         <Profile
           name={profile.fullName}
           desc={profile.profession}
           avatar={profile.photo}
         />
+      ) : (
+        <ProfilePlaceholder />
       )}
+
       <Gap height={30} />
       {listItem.map(item => (
         <List
