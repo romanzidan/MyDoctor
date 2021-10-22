@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ILNullPhoto} from '../../assets';
 import {
   DoctorCategory,
   Gap,
@@ -10,9 +11,21 @@ import {
 import {colors, fonts, getData} from '../../utils';
 
 export default function Doctor({navigation}) {
+  const [profile, setProfile] = useState({
+    fullName: '',
+    profession: '',
+    photo: ILNullPhoto,
+  });
+
   useEffect(() => {
     getData('user').then(res => {
-      console.log('data user: ', res);
+      const data = res;
+      if (data.photo) {
+        data.photo = {uri: res.photo};
+      } else {
+        data.photo = ILNullPhoto;
+      }
+      setProfile(data);
     });
   }, []);
   return (
@@ -21,7 +34,10 @@ export default function Doctor({navigation}) {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.content}>
             <Gap height={20} />
-            <HomeProfile onPress={() => navigation.navigate('UserProfile')} />
+            <HomeProfile
+              onPress={() => navigation.navigate('UserProfile')}
+              profile={profile}
+            />
             <Text style={styles.welcome}>
               Mau konsultasi dengan siapa hari ini?
             </Text>

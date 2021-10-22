@@ -24,8 +24,6 @@ export default function UserProfile({navigation}) {
           message: err.message,
         });
       });
-    console.log('logout');
-    navigation.replace('GetStarted');
   };
 
   const [listItem] = useState([
