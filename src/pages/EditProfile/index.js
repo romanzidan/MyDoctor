@@ -3,7 +3,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useDispatch} from 'react-redux';
 import {ILNullPhoto} from '../../assets';
-import {Button, Gap, Header, Input, Loading, Profile} from '../../components';
+import {Button, Gap, Header, Input, Profile} from '../../components';
 import {Firebase} from '../../config';
 import {colors, getData, showError, showSuccess, storeData} from '../../utils';
 
