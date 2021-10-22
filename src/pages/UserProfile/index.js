@@ -8,17 +8,23 @@ import {colors, getData} from '../../utils';
 
 export default function UserProfile({navigation}) {
   const signOut = () => {
-    // Firebase.auth()
-    //   .signOut()
-    //   .then(() => {
-    //     navigation.replace('GetStarted');
-    //   })
-    //   .catch(err => {
-    //     showMessage({
-    //       message: err.message,
-    //     });
-    //   });
-    // console.log('logout');
+    Firebase.auth()
+      .signOut()
+      .then(() => {
+        navigation.replace('GetStarted');
+        showMessage({
+          message: 'Success Logout',
+          type: 'default',
+          backgroundColor: colors.success,
+          color: colors.white,
+        });
+      })
+      .catch(err => {
+        showMessage({
+          message: err.message,
+        });
+      });
+    console.log('logout');
     navigation.replace('GetStarted');
   };
 
