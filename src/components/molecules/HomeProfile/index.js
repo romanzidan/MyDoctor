@@ -20,7 +20,7 @@ export default function HomeProfile({onPress}) {
       }
       setProfile(data);
     });
-  });
+  }, []);
 
   return (
     <Pressable

@@ -68,6 +68,8 @@ export default function UserProfile({navigation}) {
       const data = res;
       if (data.photo) {
         data.photo = {uri: res.photo};
+      } else {
+        data.photo = ILNullPhoto;
       }
       setProfile(data);
     });
