@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {IconRemovePhoto} from '../../../assets';
+import {IconRemovePhoto, ILNullPhoto} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
 export default function Profile({isRemove, name, avatar, desc, onPress}) {
@@ -8,7 +8,10 @@ export default function Profile({isRemove, name, avatar, desc, onPress}) {
     <View style={styles.container}>
       {!isRemove && (
         <View style={styles.borderAvatar}>
-          <Image source={avatar} style={styles.avatar} />
+          <Image
+            source={avatar.length !== 0 ? avatar : ILNullPhoto}
+            style={styles.avatar}
+          />
           {isRemove && <IconRemovePhoto style={styles.icon} />}
         </View>
       )}

@@ -13,10 +13,12 @@ export default function HomeProfile({onPress}) {
   useEffect(() => {
     getData('user').then(res => {
       const data = res;
-      data.photo = {uri: res.photo};
+      if (data.photo) {
+        data.photo = {uri: res.photo};
+      }
       setProfile(data);
     });
-  }, []);
+  });
 
   return (
     <Pressable
