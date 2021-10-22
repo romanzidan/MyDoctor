@@ -1,11 +1,10 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
 import {useDispatch} from 'react-redux';
 import {ILLogo} from '../../assets';
 import {Button, Gap, Input, Link} from '../../components/atoms';
 import {Firebase} from '../../config';
-import {colors, fonts, storeData, useForm} from '../../utils';
+import {colors, fonts, showError, storeData, useForm} from '../../utils';
 
 export default function Login({navigation}) {
   const dispatch = useDispatch();
@@ -16,13 +15,7 @@ export default function Login({navigation}) {
 
   const loginHandle = () => {
     if (form.email === '' || form.password === '') {
-      showMessage({
-        message: 'Login Gagal.',
-        description: 'Semua Field Input Wajib Diisi',
-        type: 'default',
-        backgroundColor: colors.error,
-        color: colors.white,
-      });
+      showError('Login Gagal.', 'Semua Field Input Wajib Diisi');
     } else {
       dispatch({type: 'SET_LOADING', value: true});
       Firebase.auth()
@@ -42,13 +35,7 @@ export default function Login({navigation}) {
         })
         .catch(() => {
           dispatch({type: 'SET_LOADING', value: false});
-          showMessage({
-            message: 'Login Gagal.',
-            description: 'Email atau Password',
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError('Login Gagal', 'Email atau Password');
         });
     }
   };

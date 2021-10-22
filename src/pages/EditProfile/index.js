@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {Button, Gap, Header, Input, Loading, Profile} from '../../components';
-import {colors, getData, storeData} from '../../utils';
-import {Firebase} from '../../config';
-import {showMessage} from 'react-native-flash-message';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {useDispatch} from 'react-redux';
 import {ILNullPhoto} from '../../assets';
+import {Button, Gap, Header, Input, Loading, Profile} from '../../components';
+import {Firebase} from '../../config';
+import {colors, getData, showError, showSuccess, storeData} from '../../utils';
 
 export default function EditProfile({navigation}) {
+  const dispatch = useDispatch();
   const [profile, setProfile] = useState({
     fullName: '',
     profession: '',
@@ -17,7 +18,6 @@ export default function EditProfile({navigation}) {
   const [password, setPassword] = useState('');
   const [photo, setPhoto] = useState(ILNullPhoto);
   const [photoForDB, setPhotoForDB] = useState('');
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getData('user').then(res => {
@@ -32,22 +32,19 @@ export default function EditProfile({navigation}) {
   const updateProfileHandle = () => {
     if (password.length > 0) {
       if (password.length < 6) {
-        showMessage({
-          message: 'Password minimal 6 karakter',
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError('Password minimal 6 karakter');
       } else {
-        setLoading(true);
+        dispatch({type: 'SET_LOADING', value: true});
         updatePassword();
         updateProfileData();
         navigation.replace('MainApp');
+        dispatch({type: 'SET_LOADING', value: false});
       }
     } else {
-      setLoading(true);
+      dispatch({type: 'SET_LOADING', value: true});
       updateProfileData();
       navigation.replace('MainApp');
+      dispatch({type: 'SET_LOADING', value: false});
     }
   };
 
@@ -57,21 +54,11 @@ export default function EditProfile({navigation}) {
         user
           .updatePassword(password)
           .then(() => {
-            showMessage({
-              message: 'success edit password',
-              type: 'default',
-              backgroundColor: colors.success,
-              color: colors.white,
-            });
+            showSuccess('Berhasil Update', 'Password berhasil diubah');
             setPassword('');
           })
           .catch(err => {
-            showMessage({
-              message: err.message,
-              type: 'default',
-              backgroundColor: colors.error,
-              color: colors.white,
-            });
+            showError(err.message);
           });
       }
     });
@@ -88,16 +75,14 @@ export default function EditProfile({navigation}) {
       .then(() => {
         storeData('user', data)
           .then(() => {
-            console.log('Behasil Update');
+            showSuccess('Berhasil Update', 'Data Profile Berhasil di Update');
           })
           .catch(() => {
-            console.log('Terjadi Masalah');
+            showError('Gagal Update', 'Terjadi Masalah');
           });
       })
       .catch(err => {
-        showMessage({
-          message: err.message,
-        });
+        showError('Gagal Update', err.message);
       });
   };
 
@@ -120,13 +105,7 @@ export default function EditProfile({navigation}) {
       },
       response => {
         if (response.didCancel || response.errorCode) {
-          showMessage({
-            message: 'Gagal Upload Foto',
-            description: response.errorMessage,
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError('Gagal Upload Photo', response.errorMessage);
         } else {
           const source = {uri: response.assets[0].uri};
 
@@ -171,7 +150,6 @@ export default function EditProfile({navigation}) {
           <Gap height={20} />
         </View>
       </ScrollView>
-      {loading && <Loading />}
     </View>
   );
 }

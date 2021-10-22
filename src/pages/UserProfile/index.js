@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
 import {ILNullPhoto} from '../../assets';
 import {Gap, Header, List, Profile, ProfilePlaceholder} from '../../components';
 import {Firebase} from '../../config';
-import {colors, getData} from '../../utils';
+import {colors, getData, showError} from '../../utils';
 
 export default function UserProfile({navigation}) {
   const signOut = () => {
@@ -12,17 +11,9 @@ export default function UserProfile({navigation}) {
       .signOut()
       .then(() => {
         navigation.replace('GetStarted');
-        showMessage({
-          message: 'Success Logout',
-          type: 'default',
-          backgroundColor: colors.success,
-          color: colors.white,
-        });
       })
       .catch(err => {
-        showMessage({
-          message: err.message,
-        });
+        showError(err.message);
       });
   };
 

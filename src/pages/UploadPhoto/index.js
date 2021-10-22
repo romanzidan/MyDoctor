@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
 import {Button, Gap, Header, Link} from '../../components';
-import {colors, fonts, storeData} from '../../utils';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {showMessage} from 'react-native-flash-message';
 import {Firebase} from '../../config';
+import {colors, fonts, showError, storeData} from '../../utils';
 
 export default function UploadPhoto({navigation, route}) {
   const [hasPhoto, setHasPhoto] = useState(false);
@@ -25,13 +24,7 @@ export default function UploadPhoto({navigation, route}) {
       },
       response => {
         if (response.didCancel || response.errorCode) {
-          showMessage({
-            message: 'Gagal Upload Foto',
-            description: response.errorMessage,
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError('Gagal Upload Foto');
         } else {
           const source = {uri: response.assets[0].uri};
 

@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
-import {Button, Gap, Header, Input, Loading} from '../../components';
+import {useDispatch} from 'react-redux';
+import {Button, Gap, Header, Input} from '../../components';
 import {Firebase} from '../../config';
-import {colors, storeData, useForm} from '../../utils';
+import {colors, showError, storeData, useForm} from '../../utils';
 
 export default function Register({navigation}) {
-  //initial firebase
-
+  const dispatch = useDispatch();
   const [form, setForm] = useForm({
     fullName: '',
     profession: '',
@@ -15,27 +14,16 @@ export default function Register({navigation}) {
     password: '',
   });
 
-  const [loading, setLoading] = useState(false);
-
   const onContinue = () => {
-    console.log(form);
-    setLoading(true);
-
     if (!form.fullName || !form.profession || !form.email || !form.password) {
-      setLoading(false);
-      showMessage({
-        message: 'Daftar Akun Gagal',
-        description: 'Semua data wajib diisi.',
-        type: 'default',
-        backgroundColor: colors.error,
-        color: colors.white,
-      });
+      showError('Daftar Akun Gagal', 'Semua data wajib diisi.');
     } else {
       // Register Handle
+      dispatch({type: 'SET_LOADING', value: true});
       Firebase.auth()
         .createUserWithEmailAndPassword(form.email, form.password)
         .then(userCredential => {
-          setLoading(false);
+          dispatch({type: 'SET_LOADING', value: false});
           setForm('reset');
           // Signed in
           const user = userCredential.user;
@@ -70,14 +58,8 @@ export default function Register({navigation}) {
               errorMessage = error.message;
               break;
           }
-          setLoading(false);
-          showMessage({
-            message: 'Daftar Akun Gagal',
-            description: errorMessage,
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          dispatch({type: 'SET_LOADING', value: false});
+          showError('Daftar Akun Gagal', errorMessage);
         });
     }
   };
@@ -118,7 +100,6 @@ export default function Register({navigation}) {
           </View>
         </ScrollView>
       </View>
-      {loading && <Loading />}
     </>
   );
 }
