@@ -15,7 +15,6 @@ export default function UploadPhoto({navigation, route}) {
   const getImage = () => {
     launchImageLibrary(
       {
-        saveToPhotos: true,
         includeBase64: true,
         mediaType: 'photo',
         maxWidth: 500,

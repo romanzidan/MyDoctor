@@ -96,7 +96,6 @@ export default function EditProfile({navigation}) {
   const getImage = () => {
     launchImageLibrary(
       {
-        saveToPhotos: true,
         includeBase64: true,
         mediaType: 'photo',
         maxWidth: 500,
