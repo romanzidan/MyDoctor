@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {colors, fonts} from '../../../utils';
 
-export default function Input({label, type, value, onChangeText}) {
+export default function Input({label, type, value, onChangeText, disable}) {
   const [border, setBorder] = useState(colors.border);
   const [labelColor, setLabelColor] = useState(colors.text.secondary);
   const onFocusForm = () => {
@@ -25,6 +25,8 @@ export default function Input({label, type, value, onChangeText}) {
         onChangeText={onChangeText}
         value={value}
         keyboardType={type === 'email' ? 'email-address' : 'default'}
+        editable={!disable}
+        selectTextOnFocus={!disable}
       />
     </View>
   );
@@ -37,7 +39,6 @@ const styles = StyleSheet.create({
     borderColor: border,
     padding: 12,
     fontSize: 16,
-    color: colors.text.primary,
   }),
   label: labelColor => ({
     fontSize: 16,

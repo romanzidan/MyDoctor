@@ -1,10 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
 import {ILNullPhoto} from '../../assets';
 import {Gap, Header, List, Profile, ProfilePlaceholder} from '../../components';
+import {Firebase} from '../../config';
 import {colors, getData} from '../../utils';
 
 export default function UserProfile({navigation}) {
+  const signOut = () => {
+    // Firebase.auth()
+    //   .signOut()
+    //   .then(() => {
+    //     navigation.replace('GetStarted');
+    //   })
+    //   .catch(err => {
+    //     showMessage({
+    //       message: err.message,
+    //     });
+    //   });
+    // console.log('logout');
+    navigation.replace('GetStarted');
+  };
+
   const [listItem] = useState([
     {
       id: 1,
@@ -30,6 +47,7 @@ export default function UserProfile({navigation}) {
       title: 'Logout',
       desc: 'Keluar dari akun ini',
       icon: 'logout',
+      onPress: signOut,
     },
   ]);
 
