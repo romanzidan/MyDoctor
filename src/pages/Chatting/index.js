@@ -1,7 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ChatItem, Header, InputChat} from '../../components';
-import {colors, fonts, getData, showError} from '../../utils';
+import {
+  colors,
+  fonts,
+  getChatTime,
+  getData,
+  setDateChat,
+  showError,
+} from '../../utils';
 import {Firebase} from '../../config';
 
 export default function Chatting({navigation, route}) {
@@ -17,24 +24,20 @@ export default function Chatting({navigation, route}) {
 
   const chatSend = () => {
     const today = new Date();
-    const hour = today.getHours();
-    const minutes = today.getMinutes();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const date = today.getDate();
 
     const data = {
       sendBy: user.uid,
-      chatDate: new Date().getTime(),
-      chatTime: `${hour}:${minutes} ${hour > 12 ? 'PM' : 'AM'}`,
+      chatDate: today.getTime(),
+      chatTime: getChatTime(today),
       chatContent: chatContent,
     };
+    const chatID = `${user.uid}_${dataDoctor.uid}`;
+
+    const urlFirebase = `chatting/${chatID}/allChat/${setDateChat(today)}`;
 
     // send to database
     Firebase.database()
-      .ref(
-        `chatting/${user.uid}_${dataDoctor.uid}/allChat/${year}-${month}-${date}`,
-      )
+      .ref(urlFirebase)
       .push(data)
       .then(() => {
         setChatContent('');
