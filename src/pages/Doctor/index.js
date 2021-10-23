@@ -18,6 +18,7 @@ export default function Doctor({navigation}) {
     photo: ILNullPhoto,
   });
   const [news, setNews] = useState([]);
+  const [categoryDoctor, setCategoryDoctor] = useState([]);
 
   useEffect(() => {
     getData('user').then(res => {
@@ -29,6 +30,7 @@ export default function Doctor({navigation}) {
       }
       setProfile(data);
     });
+
     Firebase.database()
       .ref('news/')
       .once('value')
@@ -36,6 +38,19 @@ export default function Doctor({navigation}) {
         console.log('data: ', res.val());
         if (res.val()) {
           setNews(res.val());
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+
+    Firebase.database()
+      .ref('category_doc/')
+      .once('value')
+      .then(res => {
+        console.log('data: ', res.val());
+        if (res.val()) {
+          setCategoryDoctor(res.val());
         }
       })
       .catch(err => {
@@ -59,12 +74,15 @@ export default function Doctor({navigation}) {
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={styles.category}>
                   <Gap width={16} />
-                  <DoctorCategory
-                    onPress={() => navigation.navigate('ChooseDoctor')}
-                  />
-                  <DoctorCategory />
-                  <DoctorCategory />
-                  <DoctorCategory />
+                  {categoryDoctor.map(item => {
+                    return (
+                      <DoctorCategory
+                        key={item.id}
+                        category={item.category}
+                        onPress={() => navigation.navigate('ChooseDoctor')}
+                      />
+                    );
+                  })}
                   <Gap width={6} />
                 </View>
               </ScrollView>
