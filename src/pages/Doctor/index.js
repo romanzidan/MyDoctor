@@ -19,36 +19,55 @@ export default function Doctor({navigation}) {
   });
   const [news, setNews] = useState([]);
   const [categoryDoctor, setCategoryDoctor] = useState([]);
+  const [topDoctor, setTopDoctor] = useState([]);
 
   useEffect(() => {
+    navigation.addListener('focus', () => {
+      getUserData();
+    });
+    getCategoryDoctor();
+    getTopRatedDoctor();
+    getNews();
+  }, [navigation]);
+
+  const getUserData = () => {
     getData('user').then(res => {
       const data = res;
-      if (data.photo) {
-        data.photo = {uri: res.photo};
-      } else {
-        data.photo = ILNullPhoto;
-      }
+      data.photo = res?.photo?.length > 1 ? {uri: res.photo} : ILNullPhoto;
       setProfile(data);
     });
+  };
 
+  const getTopRatedDoctor = () => {
     Firebase.database()
-      .ref('news/')
+      .ref('doctors/')
+      .orderByChild('rate')
+      .limitToLast(3)
       .once('value')
       .then(res => {
-        console.log('data: ', res.val());
         if (res.val()) {
-          setNews(res.val());
+          const oldData = res.val();
+          //parse to array
+          const data = [];
+          Object.keys(oldData).map(key => {
+            data.push({
+              id: key,
+              data: oldData[key],
+            });
+          });
+          setTopDoctor(data);
         }
       })
       .catch(err => {
         showError(err.message);
       });
+  };
 
+  const getCategoryDoctor = () => {
     Firebase.database()
       .ref('category_doc/')
       .once('value')
       .then(res => {
-        console.log('data: ', res.val());
         if (res.val()) {
           setCategoryDoctor(res.val());
         }
@@ -56,7 +75,21 @@ export default function Doctor({navigation}) {
       .catch(err => {
         showError(err.message);
       });
-  }, []);
+  };
+
+  const getNews = () => {
+    Firebase.database()
+      .ref('news/')
+      .once('value')
+      .then(res => {
+        if (res.val()) {
+          setNews(res.val());
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+  };
   return (
     <View style={styles.page}>
       <View style={styles.container}>
@@ -89,9 +122,17 @@ export default function Doctor({navigation}) {
             </View>
             <Text style={styles.sectionLabel}>Dokter Terbaik</Text>
             <Gap height={8} />
-            <RatedDoctor onPress={() => navigation.navigate('DoctorProfile')} />
-            <RatedDoctor />
-            <RatedDoctor />
+            {topDoctor.map(item => {
+              return (
+                <RatedDoctor
+                  key={item.id}
+                  name={item.data.fullName}
+                  category={item.data.profession}
+                  avatar={{uri: item.data.photo}}
+                  onPress={() => navigation.navigate('DoctorProfile')}
+                />
+              );
+            })}
             <Text style={styles.sectionLabel}>Berita Terbaru</Text>
             {news.map(item => {
               return (
