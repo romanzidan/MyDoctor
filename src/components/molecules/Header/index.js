@@ -37,5 +37,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     flex: 1,
     textAlign: 'center',
+    textTransform: 'capitalize',
   }),
 });

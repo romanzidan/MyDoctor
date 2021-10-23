@@ -27,7 +27,7 @@ export default function DoctorCategory({category, onPress}) {
         android_ripple={{color: colors.cardRipple, borderless: false}}>
         <Icon />
         <Text style={styles.label}>Saya butuh</Text>
-        <Text style={styles.category}>Dokter {category}</Text>
+        <Text style={styles.category}>{category}</Text>
       </Pressable>
     </View>
   );
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     alignSelf: 'flex-start',
     overflow: 'hidden',
-    width: 120,
+    width: 110,
   },
   pressable: {
     padding: 12,
