@@ -1,21 +1,20 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import {DummyDoctor3, IconRate} from '../../../assets';
+import {IconRate} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-export default function RatedDoctor({onPress}) {
+export default function RatedDoctor({name, avatar, category, onPress}) {
   return (
     <Pressable
       style={styles.container}
       android_ripple={{color: colors.rippleWhite}}
       onPress={onPress}>
-      <Image source={DummyDoctor3} style={styles.avatar} />
+      <Image source={avatar} style={styles.avatar} />
       <View style={styles.profile}>
-        <Text style={styles.name}>Ganyu Putri</Text>
-        <Text style={styles.category}>Psikiater</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.category}>{category}</Text>
       </View>
       <View style={styles.rate}>
-        <IconRate />
         <IconRate />
         <IconRate />
         <IconRate />
@@ -54,5 +53,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary.normal,
     color: colors.text.secondary,
     marginTop: 2,
+    textTransform: 'capitalize',
   },
 });
