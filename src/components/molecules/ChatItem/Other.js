@@ -1,19 +1,16 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {DummyDoctor3} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-export default function Other() {
+export default function Other({text, date, avatar}) {
   return (
     <View style={styles.container}>
-      <Image source={DummyDoctor3} style={styles.avatar} />
+      <Image source={avatar} style={styles.avatar} />
       <View>
         <View style={styles.chatContent}>
-          <Text style={styles.text}>
-            Ibu dokter, apakah bermain genshin tiap hari itu buruk?
-          </Text>
+          <Text style={styles.text}>{text}</Text>
         </View>
-        <Text style={styles.date}>4.20 AM</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
     </View>
   );
