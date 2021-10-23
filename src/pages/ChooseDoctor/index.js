@@ -19,7 +19,6 @@ export default function ChooseDoctor({navigation, route}) {
       .equalTo(category)
       .once('value')
       .then(res => {
-        console.log('data list doctor: ', res.val());
         if (res.val()) {
           const oldData = res.val();
           const data = [];
@@ -50,7 +49,7 @@ export default function ChooseDoctor({navigation, route}) {
             title={item.data.fullName}
             desc={item.data.gender}
             image={{uri: item.data.photo}}
-            onPress={() => navigation.navigate('Chatting')}
+            onPress={() => navigation.navigate('DoctorProfile', item.data)}
           />
         ))
       ) : (
