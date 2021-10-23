@@ -132,6 +132,7 @@ export default function Doctor({navigation}) {
               return (
                 <RatedDoctor
                   key={item.id}
+                  rate={item.data.rate}
                   name={item.data.fullName}
                   category={item.data.profession}
                   avatar={{uri: item.data.photo}}

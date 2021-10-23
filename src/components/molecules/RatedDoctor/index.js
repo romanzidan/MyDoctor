@@ -3,7 +3,11 @@ import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {IconRate} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-export default function RatedDoctor({name, avatar, category, onPress}) {
+export default function RatedDoctor({name, avatar, rate, category, onPress}) {
+  const starRate = [];
+  for (let i = 0; i < rate; i++) {
+    starRate.push(<IconRate key={i} />);
+  }
   return (
     <Pressable
       style={styles.container}
@@ -14,12 +18,7 @@ export default function RatedDoctor({name, avatar, category, onPress}) {
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.category}>{category}</Text>
       </View>
-      <View style={styles.rate}>
-        <IconRate />
-        <IconRate />
-        <IconRate />
-        <IconRate />
-      </View>
+      <View style={styles.rate}>{starRate}</View>
     </Pressable>
   );
 }
