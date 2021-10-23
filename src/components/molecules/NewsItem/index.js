@@ -1,19 +1,16 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {DummyNews1} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-export default function NewsItem() {
+export default function NewsItem({title, image, date}) {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.titleWrapper}>
-          <Text style={styles.title}>
-            Apakah aman tinggal dirumah selama virus corona?
-          </Text>
-          <Text>Hari ini</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text>{date}</Text>
         </View>
-        <Image source={DummyNews1} style={styles.image} />
+        <Image source={{uri: image}} style={styles.image} />
       </View>
     </View>
   );
@@ -39,6 +36,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     color: colors.text.primary,
     maxWidth: '90%',
+    marginBottom: 2,
   },
   date: {
     fontSize: 12,

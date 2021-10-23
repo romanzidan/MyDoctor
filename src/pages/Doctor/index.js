@@ -8,7 +8,8 @@ import {
   NewsItem,
   RatedDoctor,
 } from '../../components';
-import {colors, fonts, getData} from '../../utils';
+import {Firebase} from '../../config';
+import {colors, fonts, getData, showError} from '../../utils';
 
 export default function Doctor({navigation}) {
   const [profile, setProfile] = useState({
@@ -16,6 +17,7 @@ export default function Doctor({navigation}) {
     profession: '',
     photo: ILNullPhoto,
   });
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     getData('user').then(res => {
@@ -27,6 +29,18 @@ export default function Doctor({navigation}) {
       }
       setProfile(data);
     });
+    Firebase.database()
+      .ref('news/')
+      .once('value')
+      .then(res => {
+        console.log('data: ', res.val());
+        if (res.val()) {
+          setNews(res.val());
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
   }, []);
   return (
     <View style={styles.page}>
@@ -61,9 +75,16 @@ export default function Doctor({navigation}) {
             <RatedDoctor />
             <RatedDoctor />
             <Text style={styles.sectionLabel}>Berita Terbaru</Text>
-            <NewsItem />
-            <NewsItem />
-            <NewsItem />
+            {news.map(item => {
+              return (
+                <NewsItem
+                  key={item.id}
+                  title={item.title}
+                  date={item.date}
+                  image={item.image}
+                />
+              );
+            })}
             <Gap height={30} />
           </View>
         </ScrollView>
