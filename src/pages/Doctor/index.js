@@ -129,7 +129,9 @@ export default function Doctor({navigation}) {
                   name={item.data.fullName}
                   category={item.data.profession}
                   avatar={{uri: item.data.photo}}
-                  onPress={() => navigation.navigate('DoctorProfile')}
+                  onPress={() =>
+                    navigation.navigate('DoctorProfile', item.data)
+                  }
                 />
               );
             })}

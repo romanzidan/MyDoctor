@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     color: colors.text.secondary,
     marginTop: 2,
+    textTransform: 'capitalize',
   },
   icon: {
     position: 'absolute',
