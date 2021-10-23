@@ -20,7 +20,7 @@ export default function DoctorProfile({navigation, route}) {
       <View style={styles.content}>
         <Button
           title="Mulai Konsultasi"
-          onPress={() => navigation.navigate('Chatting')}
+          onPress={() => navigation.navigate('Chatting', dataDoctor)}
         />
       </View>
     </View>

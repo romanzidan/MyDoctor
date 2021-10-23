@@ -1,18 +1,17 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {DummyDoctor3} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 import {Button} from '../../atoms';
 
-export default function DarkProfile({title, onPress}) {
+export default function DarkProfile({title, desc, avatar, onPress}) {
   return (
     <View style={styles.container}>
       <Button type="icon-only" icon="back-light" onPress={onPress} />
       <View style={styles.text}>
         <Text style={styles.name}>{title}</Text>
-        <Text style={styles.desc}>Psikiater Genshin</Text>
+        <Text style={styles.desc}>{desc}</Text>
       </View>
-      <Image source={DummyDoctor3} style={styles.avatar} />
+      <Image source={{uri: avatar}} style={styles.avatar} />
     </View>
   );
 }
@@ -35,6 +34,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontFamily: fonts.primary[600],
     textAlign: 'center',
+    textTransform: 'capitalize',
   },
   desc: {
     fontSize: 14,
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     textAlign: 'center',
     color: colors.text.subTitle,
+    textTransform: 'capitalize',
   },
   avatar: {
     height: 50,

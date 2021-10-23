@@ -3,12 +3,15 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ChatItem, Header, InputChat} from '../../components';
 import {colors, fonts} from '../../utils';
 
-export default function Chatting({navigation}) {
+export default function Chatting({navigation, route}) {
+  const dataDoctor = route.params;
   return (
     <View style={styles.page}>
       <Header
         type="dark-profile"
-        title="Ganyu Putri"
+        title={dataDoctor.fullName}
+        desc={dataDoctor.profession}
+        avatar={dataDoctor.photo}
         onPress={() => navigation.goBack()}
       />
       <ScrollView>
@@ -19,7 +22,12 @@ export default function Chatting({navigation}) {
           <ChatItem isMe />
         </View>
       </ScrollView>
-      <InputChat name="Ganyu" />
+      <InputChat
+        value=""
+        onChangeText={() => alert('sad')}
+        onButtonSend={() => alert('asd')}
+        placeholder={`Tulis pesan untuk ${dataDoctor.fullName}`}
+      />
     </View>
   );
 }
