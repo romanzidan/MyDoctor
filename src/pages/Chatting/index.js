@@ -44,7 +44,6 @@ export default function Chatting({navigation, route}) {
             });
           });
           setChatData(allDataChat);
-          console.log('data chat: ', allDataChat);
         }
       });
   }, [dataDoctor.uid, user.uid]);

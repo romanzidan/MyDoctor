@@ -52,7 +52,7 @@ export default function Messages({navigation}) {
             title={item.detailDoctor.fullName}
             desc={item.lastContentChat}
             image={{uri: item.detailDoctor.photo}}
-            onPress={() => navigation.navigate('Chatting')}
+            onPress={() => navigation.navigate('Chatting', item.detailDoctor)}
           />
         ))}
       </View>
