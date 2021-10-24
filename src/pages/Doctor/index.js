@@ -8,6 +8,7 @@ import {
   HomeProfile,
   NewsItem,
   RatedDoctor,
+  RatedDoctorPlaceholder,
 } from '../../components';
 import {Firebase} from '../../config';
 import {colors, fonts, getData, showError} from '../../utils';
@@ -133,20 +134,24 @@ export default function Doctor({navigation}) {
             </View>
             <Text style={styles.sectionLabel}>Dokter Terbaik</Text>
             <Gap height={8} />
-            {topDoctor.map(item => {
-              return (
-                <RatedDoctor
-                  key={item.id}
-                  rate={item.data.rate}
-                  name={item.data.fullName}
-                  category={item.data.profession}
-                  avatar={{uri: item.data.photo}}
-                  onPress={() =>
-                    navigation.navigate('DoctorProfile', item.data)
-                  }
-                />
-              );
-            })}
+            {topDoctor.length !== 0 ? (
+              topDoctor.map(item => {
+                return (
+                  <RatedDoctor
+                    key={item.id}
+                    rate={item.data.rate}
+                    name={item.data.fullName}
+                    category={item.data.profession}
+                    avatar={{uri: item.data.photo}}
+                    onPress={() =>
+                      navigation.navigate('DoctorProfile', item.data)
+                    }
+                  />
+                );
+              })
+            ) : (
+              <RatedDoctorPlaceholder />
+            )}
             <Text style={styles.sectionLabel}>Berita Terbaru</Text>
             {news.map(item => {
               return (
