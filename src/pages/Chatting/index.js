@@ -16,6 +16,7 @@ export default function Chatting({navigation, route}) {
   const [chatContent, setChatContent] = useState('');
   const [user, setUser] = useState({});
   const [chatData, setChatData] = useState([]);
+  const [thisScroll, setThisScroll] = useState();
 
   useEffect(() => {
     getDataUserFromLocal();
@@ -105,7 +106,11 @@ export default function Chatting({navigation, route}) {
         avatar={dataDoctor.photo}
         onPress={() => navigation.goBack()}
       />
-      <ScrollView>
+      <ScrollView
+        ref={scroll => {
+          setThisScroll(scroll);
+        }}
+        onContentSizeChange={() => thisScroll.scrollToEnd({animated: true})}>
         <View style={styles.content}>
           {chatData.map(chat => {
             return (
