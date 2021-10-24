@@ -67,6 +67,19 @@ export default function Chatting({navigation, route}) {
     const chatID = `${user.uid}_${dataDoctor.uid}`;
 
     const urlFirebase = `chatting/${chatID}/allChat/${setDateChat(today)}`;
+    const urlMessageUser = `messages/${user.uid}/${chatID}`;
+    const urlMessageDoctor = `messages/${dataDoctor.uid}/${chatID}`;
+
+    const dataHistoryChatForUser = {
+      lastContentChat: chatContent,
+      lastChatDate: today.getTime(),
+      uidPartner: dataDoctor.uid,
+    };
+    const dataHistoryChatForDoctor = {
+      lastContentChat: chatContent,
+      lastChatDate: today.getTime(),
+      uidPartner: user.uid,
+    };
 
     // send to database
     Firebase.database()
@@ -74,6 +87,10 @@ export default function Chatting({navigation, route}) {
       .push(data)
       .then(() => {
         setChatContent('');
+        //set history for user
+        Firebase.database().ref(urlMessageUser).set(dataHistoryChatForUser);
+        //sethistory for doctor
+        Firebase.database().ref(urlMessageDoctor).set(dataHistoryChatForDoctor);
       })
       .catch(err => {
         showError(err.message);
