@@ -7,6 +7,7 @@ import {
   Gap,
   HomeProfile,
   NewsItem,
+  NewsItemPlaceholder,
   RatedDoctor,
   RatedDoctorPlaceholder,
 } from '../../components';
@@ -113,7 +114,7 @@ export default function Doctor({navigation}) {
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={styles.category}>
                   <Gap width={16} />
-                  {categoryDoctor.length !== 0 ? (
+                  {categoryDoctor.length > 0 ? (
                     categoryDoctor.map(item => {
                       return (
                         <DoctorCategory
@@ -134,7 +135,7 @@ export default function Doctor({navigation}) {
             </View>
             <Text style={styles.sectionLabel}>Dokter Terbaik</Text>
             <Gap height={8} />
-            {topDoctor.length !== 0 ? (
+            {topDoctor.length > 0 ? (
               topDoctor.map(item => {
                 return (
                   <RatedDoctor
@@ -153,16 +154,20 @@ export default function Doctor({navigation}) {
               <RatedDoctorPlaceholder />
             )}
             <Text style={styles.sectionLabel}>Berita Terbaru</Text>
-            {news.map(item => {
-              return (
-                <NewsItem
-                  key={item.id}
-                  title={item.title}
-                  date={item.date}
-                  image={item.image}
-                />
-              );
-            })}
+            {news.length > 0 ? (
+              news.map(item => {
+                return (
+                  <NewsItem
+                    key={item.id}
+                    title={item.title}
+                    date={item.date}
+                    image={item.image}
+                  />
+                );
+              })
+            ) : (
+              <NewsItemPlaceholder />
+            )}
             <Gap height={30} />
           </View>
         </ScrollView>
