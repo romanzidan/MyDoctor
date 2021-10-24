@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ChatItem, Header, InputChat} from '../../components';
+import {Firebase} from '../../config';
 import {
   colors,
   fonts,
@@ -9,7 +10,6 @@ import {
   setDateChat,
   showError,
 } from '../../utils';
-import {Firebase} from '../../config';
 
 export default function Chatting({navigation, route}) {
   const dataDoctor = route.params;

@@ -3,6 +3,7 @@ import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {ILNullPhoto} from '../../assets';
 import {
   DoctorCategory,
+  DoctorCategoryPlaceholder,
   Gap,
   HomeProfile,
   NewsItem,
@@ -111,17 +112,21 @@ export default function Doctor({navigation}) {
               <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                 <View style={styles.category}>
                   <Gap width={16} />
-                  {categoryDoctor.map(item => {
-                    return (
-                      <DoctorCategory
-                        key={`category-${item.id}`}
-                        category={item.category}
-                        onPress={() =>
-                          navigation.navigate('ChooseDoctor', item)
-                        }
-                      />
-                    );
-                  })}
+                  {categoryDoctor.length !== 0 ? (
+                    categoryDoctor.map(item => {
+                      return (
+                        <DoctorCategory
+                          key={`category-${item.id}`}
+                          category={item.category}
+                          onPress={() =>
+                            navigation.navigate('ChooseDoctor', item)
+                          }
+                        />
+                      );
+                    })
+                  ) : (
+                    <DoctorCategoryPlaceholder />
+                  )}
                   <Gap width={6} />
                 </View>
               </ScrollView>
