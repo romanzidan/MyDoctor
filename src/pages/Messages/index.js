@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {
-  DummyDoctor1,
-  DummyDoctor2,
-  DummyDoctor3,
-  DummyDoctor4,
-  DummyDoctor5,
-} from '../../assets';
 import {List} from '../../components';
 import {Firebase} from '../../config';
 import {colors, fonts, getData} from '../../utils';
@@ -17,23 +10,30 @@ export default function Messages({navigation}) {
 
   useEffect(() => {
     getDataUserFromLocal();
+    const rootDB = Firebase.database().ref();
     const urlHistory = `messages/${user.uid}`;
-    Firebase.database()
-      .ref(urlHistory)
-      .on('value', snapshot => {
-        if (snapshot.val()) {
-          const oldData = snapshot.val();
-          const data = [];
-          Object.keys(oldData).map(key => {
-            data.push({
-              id: key,
-              ...oldData[key],
-            });
+    const messagesDB = rootDB.child(urlHistory);
+
+    messagesDB.on('value', async snapshot => {
+      if (snapshot.val()) {
+        const oldData = snapshot.val();
+        const data = [];
+
+        const promises = await Object.keys(oldData).map(async key => {
+          const urlUidDoctor = `doctors/${oldData[key].uidPartner}`;
+          const detailDoctor = await rootDB.child(urlUidDoctor).once('value');
+
+          data.push({
+            id: key,
+            detailDoctor: detailDoctor.val(),
+            ...oldData[key],
           });
-          setHistoryChat(data);
-          console.log(data);
-        }
-      });
+        });
+
+        await Promise.all(promises);
+        setHistoryChat(data);
+      }
+    });
   }, [user.uid]);
 
   const getDataUserFromLocal = () => {
@@ -41,6 +41,7 @@ export default function Messages({navigation}) {
       setUser(res);
     });
   };
+
   return (
     <View style={styles.page}>
       <View style={styles.content}>
@@ -48,10 +49,10 @@ export default function Messages({navigation}) {
         {historyChat.map(item => (
           <List
             key={item.id}
-            title={item.uidPartner}
+            title={item.detailDoctor.fullName}
             desc={item.lastContentChat}
-            // image={item.image}
-            // onPress={item.onPress}
+            image={{uri: item.detailDoctor.photo}}
+            onPress={() => navigation.navigate('Chatting')}
           />
         ))}
       </View>
